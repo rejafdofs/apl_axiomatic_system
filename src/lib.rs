@@ -52,9 +52,13 @@ pub mod apl {
 pub mod prop {
     pub trait Prop {}
     ///￢T
-    pub struct Neg<T>(std::marker::PhantomData<T>);
-    impl<T> Prop for Neg<T> {}
+    pub struct Neg<T>(std::marker::PhantomData<T>)
+    where
+        T: Prop;
+    impl<T:Prop> Prop for Neg<T> {}
     ///T→U
-    pub struct Cond<T, U>(std::marker::PhantomData<T>, std::marker::PhantomData<U>);
-    impl<T, U> Prop for Cond<T, U> {}
+    pub struct Cond<T, U>(std::marker::PhantomData<T>, std::marker::PhantomData<U>)where
+    T: Prop,
+    U:Prop;
+    impl<T:Prop, U:Prop> Prop for Cond<T, U> {}
 }
